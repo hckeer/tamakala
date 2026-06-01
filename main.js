@@ -26,6 +26,7 @@ requestAnimationFrame(raf);
 ═══════════════════════════════════════════════════════════ */
 function initHeroAnimations() {
   const video       = document.querySelector('.bg-video');
+  const eyebrow     = document.querySelector('.hero-eyebrow');
   const title       = document.querySelector('.hero-title');
   const subtitle    = document.querySelector('.hero-subtitle');
   const ctaGroup    = document.querySelector('.hero-cta-group');
@@ -33,55 +34,42 @@ function initHeroAnimations() {
   const heroDetails = document.querySelector('.hero-details');
   const nav         = document.querySelector('.nav');
 
-  // ── Entrance timeline ──────────────────────────────────
+  // Set initial states
+  gsap.set([eyebrow, title, subtitle, ctaGroup], { opacity: 0, y: 30 });
+  gsap.set(textBg, { opacity: 0, scale: 0.7 });
+  gsap.set(nav, { opacity: 0, y: -100 });
+  if (video) gsap.set(video, { opacity: 0, scale: 1.2 });
+
+  // Entrance timeline
   const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
-  gsap.set([title, subtitle, ctaGroup], { opacity: 0, y: 40 });
-  gsap.set(textBg, { opacity: 0, scale: 0.6 });
-  gsap.set(nav, { opacity: 0, y: -100 });
-
   if (video) {
-    gsap.set(video, { opacity: 0, scale: 1.2 });
-    tl.to(video, { opacity: 1, scale: 1.05, duration: 2.5, ease: 'power2.out' });
+    tl.to(video, { opacity: 1, scale: 1.05, duration: 2.5 });
   }
 
-  tl.to(textBg,   { opacity: 1, scale: 1, duration: 1.5 }, '-=1.5')
-    .to(title,     { opacity: 1, y: 0, duration: 1.0 }, '-=0.8')
-    .to(subtitle,  { opacity: 1, y: 0, duration: 0.8 }, '-=0.6')
+  tl.to(textBg,    { opacity: 1, scale: 1, duration: 1.4 }, video ? '-=1.4' : 0)
+    .to(eyebrow,   { opacity: 1, y: 0, duration: 0.9 }, '-=0.8')
+    .to(title,     { opacity: 1, y: 0, duration: 0.9 }, '-=0.65')
+    .to(subtitle,  { opacity: 1, y: 0, duration: 0.8 }, '-=0.55')
     .to(ctaGroup,  { opacity: 1, y: 0, duration: 0.8 }, '-=0.5')
-    .to(nav,       { opacity: 1, y: 0, duration: 0.8, ease: 'power4.out' }, '-=0.6');
+    .to(nav,       { opacity: 1, y: 0, duration: 0.8, ease: 'power4.out' }, '-=0.55');
 
-  // ── Scroll-driven parallax ─────────────────────────────
+  // Scroll-driven parallax
   if (video) {
     gsap.to(video, {
       scale: 1,
-      scrollTrigger: {
-        trigger: '.hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true,
-      },
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true },
     });
   }
 
   gsap.to(heroDetails, {
     y: -150,
-    scrollTrigger: {
-      trigger: '.hero',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: 1,
-    },
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 },
   });
 
   gsap.to(textBg, {
-    y: -250,
-    scrollTrigger: {
-      trigger: '.hero',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: 1.2,
-    },
+    y: -300,
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.2 },
   });
 }
 
@@ -89,64 +77,40 @@ function initHeroAnimations() {
    PRODUCT REVEAL ANIMATIONS
 ═══════════════════════════════════════════════════════════ */
 function initProductRevealAnimations() {
-  const watch    = document.querySelector('.product-reveal-watch');
+  const product  = document.querySelector('.product-reveal-product');
+  const eyebrow  = document.querySelector('.product-reveal-eyebrow');
   const title    = document.querySelector('.product-reveal-title');
   const subtitle = document.querySelector('.product-reveal-subtitle');
   const cta      = document.querySelector('.product-reveal-cta-group');
   const textBg   = document.querySelector('.product-reveal-text-bg');
-  const details  = document.querySelector('.product-reveal-details');
 
-  if (!watch) return;
+  if (!product) return;
 
-  gsap.set([watch, title, subtitle, cta], { opacity: 0 });
-  gsap.set(watch, { y: 60, rotation: -5 });
-  gsap.set([title, subtitle, cta], { y: 30 });
+  gsap.set([product], { opacity: 0, x: -40 });
+  gsap.set([eyebrow, title, subtitle, cta], { opacity: 0, y: 25 });
 
-  // Entrance animation
   ScrollTrigger.create({
     trigger: '.product-reveal',
-    start: 'top 60%',
+    start: 'top 65%',
     toggleActions: 'play none none reverse',
     onEnter: () => {
-      const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
-      tl.to(watch,    { opacity: 1, y: 0, rotation: 0, duration: 1.2 })
-        .to(title,    { opacity: 1, y: 0, duration: 0.8 }, '-=0.6')
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      tl.to(product,  { opacity: 1, x: 0, duration: 1.1 })
+        .to(eyebrow,  { opacity: 1, y: 0, duration: 0.7 }, '-=0.6')
+        .to(title,    { opacity: 1, y: 0, duration: 0.8 }, '-=0.55')
         .to(subtitle, { opacity: 1, y: 0, duration: 0.7 }, '-=0.5')
         .to(cta,      { opacity: 1, y: 0, duration: 0.7 }, '-=0.5');
     },
     onLeaveBack: () => {
-      gsap.to([watch, title, subtitle, cta], { opacity: 0, duration: 0.4 });
-    },
-  });
-
-  // Scroll-driven: watch rotates and scales
-  gsap.to(watch, {
-    rotation: 18,
-    scale: 1.25,
-    scrollTrigger: {
-      trigger: '.product-reveal',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: 1.5,
-    },
-  });
-
-  // Parallax for text and bg text
-  gsap.to(details, {
-    y: -120,
-    scrollTrigger: {
-      trigger: '.product-reveal',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: 1,
+      gsap.to([product, eyebrow, title, subtitle, cta], { opacity: 0, duration: 0.3 });
     },
   });
 
   gsap.to(textBg, {
-    y: -200,
+    y: -150,
     scrollTrigger: {
       trigger: '.product-reveal',
-      start: 'top top',
+      start: 'top bottom',
       end: 'bottom top',
       scrub: 1.2,
     },
@@ -157,48 +121,76 @@ function initProductRevealAnimations() {
    HERITAGE ANIMATIONS
 ═══════════════════════════════════════════════════════════ */
 function initHeritageAnimations() {
-  const eyebrow = document.querySelector('.heritage-eyebrow');
-  const title   = document.querySelector('.heritage-title');
-  const divider = document.querySelector('.heritage-divider');
-  const bodies  = document.querySelectorAll('.heritage-body');
-  const link    = document.querySelector('.heritage-link');
-  const stats   = document.querySelectorAll('.heritage-stat');
+  const els = [
+    document.querySelector('.heritage-eyebrow'),
+    document.querySelector('.heritage-title'),
+    document.querySelector('.heritage-divider'),
+    ...document.querySelectorAll('.heritage-body'),
+    document.querySelector('.heritage-link'),
+    ...document.querySelectorAll('.heritage-stat'),
+  ].filter(Boolean);
 
-  const els = [eyebrow, title, divider, ...bodies, link, ...stats].filter(Boolean);
-
-  gsap.set(els, { opacity: 0, y: 30 });
+  gsap.set(els, { opacity: 0, y: 40 });
 
   ScrollTrigger.create({
     trigger: '.heritage',
     start: 'top 60%',
     toggleActions: 'play none none reverse',
     onEnter: () => {
-      gsap.to(els, {
-        opacity: 1,
-        y: 0,
-        duration: 0.9,
-        stagger: 0.12,
-        ease: 'power3.out',
-      });
+      gsap.to(els, { opacity: 1, y: 0, duration: 0.9, stagger: 0.1, ease: 'power3.out' });
     },
     onLeaveBack: () => {
-      gsap.to(els, { opacity: 0, y: 30, duration: 0.4, stagger: 0 });
+      gsap.to(els, { opacity: 0, y: 40, duration: 0.3, stagger: 0 });
+    },
+  });
+
+  // Background parallax
+  gsap.to('.heritage-bg-img', {
+    yPercent: -10,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.heritage',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: true,
     },
   });
 }
 
 /* ═══════════════════════════════════════════════════════════
-   ETHOS (COLLECTION) ANIMATIONS + SWITCHER
+   LOGISTICS BANNER ANIMATIONS
 ═══════════════════════════════════════════════════════════ */
-function initEthosAnimations() {
-  // Background parallax
-  gsap.utils.toArray('.ethos-bg-img').forEach((img) => {
+function initLogisticsAnimations() {
+  const items = document.querySelectorAll('.logistics-item');
+  if (!items.length) return;
+
+  gsap.set(items, { opacity: 0, y: 20 });
+
+  ScrollTrigger.create({
+    trigger: '.logistics',
+    start: 'top 80%',
+    toggleActions: 'play none none reverse',
+    onEnter: () => {
+      gsap.to(items, { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power2.out' });
+    },
+    onLeaveBack: () => {
+      gsap.to(items, { opacity: 0, y: 20, duration: 0.3, stagger: 0 });
+    },
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   COLLECTION ANIMATIONS (3-VARIANT SLIDER)
+═══════════════════════════════════════════════════════════ */
+function initCollectionAnimations() {
+  // Background parallax on all bg images
+  document.querySelectorAll('.collection-bg-img').forEach((img) => {
     gsap.to(img, {
-      yPercent: 10,
       scale: 1.08,
+      yPercent: 8,
       ease: 'none',
       scrollTrigger: {
-        trigger: '.ethos',
+        trigger: '.collection',
         start: 'top bottom',
         end: 'bottom top',
         scrub: true,
@@ -206,153 +198,108 @@ function initEthosAnimations() {
     });
   });
 
-  // Initial entrance for active variant
-  const activeText  = document.querySelector('.ethos-main.active .ethos-text-side > *');
-  const activeWatch = document.querySelector('.ethos-main.active .ethos-watch-img');
-
-  if (activeWatch) {
-    gsap.set(activeWatch, { opacity: 0, x: 80 });
-    ScrollTrigger.create({
-      trigger: '.ethos',
-      start: 'top 65%',
-      once: true,
-      onEnter: () => {
-        gsap.to(activeWatch, { opacity: 1, x: 0, duration: 1.2, ease: 'power3.out' });
-        gsap.fromTo(
-          '.ethos-main.active .ethos-text-side > *',
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out' }
-        );
-      },
-    });
-  }
-
-  // Variant switcher
-  document.querySelectorAll('.ethos-next-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const target    = btn.dataset.target; // 'bl' or 'rs'
-      const current   = document.querySelector('.ethos-main.active');
-      const next      = document.querySelector(`.ethos-main.variant-${target}`);
-      const currentBg = document.querySelector('.ethos-bg-img.active');
-      const nextBg    = document.querySelector(`.ethos-bg-${target}`);
-
-      if (!next || current === next) return;
-
-      const currentText  = current.querySelectorAll('.ethos-text-side > *');
-      const currentWatch = current.querySelector('.ethos-watch-img');
-      const nextText     = next.querySelectorAll('.ethos-text-side > *');
-      const nextWatch    = next.querySelector('.ethos-watch-img');
-
-      const tl = gsap.timeline();
-
-      // Slide current out to left
-      tl.to(currentText,  { opacity: 0, x: -60, duration: 0.4, stagger: 0.05, ease: 'power2.in' })
-        .to(currentWatch, { opacity: 0, x: -100, duration: 0.35, ease: 'power2.in' }, '<')
-
-        // Swap active classes mid-transition
-        .add(() => {
-          current.classList.remove('active');
-          next.classList.add('active');
-          if (currentBg) currentBg.classList.remove('active');
-          if (nextBg) nextBg.classList.add('active');
-          // Reset next elements for entrance
-          gsap.set(nextText,  { opacity: 0, x: 60 });
-          gsap.set(nextWatch, { opacity: 0, x: 100 });
-        })
-
-        // Slide next in from right
-        .to(nextText,  { opacity: 1, x: 0, duration: 0.5, stagger: 0.07, ease: 'power3.out' })
-        .to(nextWatch, { opacity: 1, x: 0, duration: 0.6, ease: 'power3.out' }, '<0.1');
-    });
-  });
-}
-
-/* ═══════════════════════════════════════════════════════════
-   CRAFTSMANSHIP — CANVAS SCROLL ANIMATION
-═══════════════════════════════════════════════════════════ */
-function initDismantleAnimations() {
-  const canvas   = document.getElementById('dismantle-canvas');
-  const fallback = document.getElementById('dismantle-fallback');
-  const header   = document.querySelector('.dismantle-header');
-  const TOTAL    = 152;
-
-  if (!canvas) return;
-
-  const ctx = canvas.getContext('2d');
-  canvas.width  = 1920;
-  canvas.height = 1080;
-
-  const images = [];
-  let loadedCount = 0;
-  let framesAvailable = false;
-
-  // Preload frames; on first successful load, hide fallback and enable canvas
-  for (let i = 1; i <= TOTAL; i++) {
-    const img = new Image();
-    const num = String(i).padStart(3, '0');
-    img.src = `/assets/photo/v3/ezgif-frame-${num}.jpg`;
-    img.onload = () => {
-      loadedCount++;
-      if (!framesAvailable && loadedCount >= 10) {
-        framesAvailable = true;
-        fallback?.classList.add('hidden');
-      }
-    };
-    images.push(img);
-  }
-
-  const state = { frame: 0 };
-
-  function drawFrame(n) {
-    const img = images[Math.max(0, Math.min(n, TOTAL - 1))];
-    if (img && img.complete && img.naturalWidth > 0) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    }
-  }
-
-  // Scroll-driven frame scrub
-  gsap.to(state, {
-    frame: TOTAL - 1,
-    snap: { snapTo: 1 },
-    ease: 'none',
-    onUpdate: () => {
-      if (framesAvailable) drawFrame(Math.round(state.frame));
-    },
-    scrollTrigger: {
-      trigger: '.dismantle',
-      start: 'top 40%',
-      end: 'bottom bottom',
-      scrub: 0.5,
-    },
-  });
-
-  // Header slides out as user scrolls into the section
+  // Collection header entrance
+  const header = document.querySelector('.collection-header');
   if (header) {
-    gsap.to(header, {
-      x: -150,
-      opacity: 0,
-      ease: 'power2.in',
-      scrollTrigger: {
-        trigger: '.dismantle',
-        start: 'top 45%',
-        end: 'top 10%',
-        scrub: 1,
-      },
+    gsap.set(header, { opacity: 0, y: 20 });
+    ScrollTrigger.create({
+      trigger: '.collection',
+      start: 'top 70%',
+      once: true,
+      onEnter: () => gsap.to(header, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }),
     });
   }
+
+  // Initial entrance for the active variant
+  ScrollTrigger.create({
+    trigger: '.collection',
+    start: 'top 65%',
+    once: true,
+    onEnter: () => {
+      const activeText  = document.querySelectorAll('.collection-main.active .collection-text-side > *');
+      const activeImg   = document.querySelector('.collection-main.active .collection-product-img');
+      if (activeImg) {
+        gsap.fromTo(activeImg, { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 1.2, ease: 'power3.out' });
+      }
+      if (activeText.length) {
+        gsap.fromTo(activeText, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out' });
+      }
+    },
+  });
+
+  // Variant switcher — handles next/prev buttons across all three variants
+  function switchVariant(fromEl, toEl, direction) {
+    if (!toEl || fromEl === toEl) return;
+
+    const fromText  = fromEl.querySelectorAll('.collection-text-side > *');
+    const fromImg   = fromEl.querySelector('.collection-product-img');
+    const toText    = toEl.querySelectorAll('.collection-text-side > *');
+    const toImg     = toEl.querySelector('.collection-product-img');
+
+    const exitX  = direction === 'next' ? -120 : 120;
+    const enterX = direction === 'next' ?  120 : -120;
+
+    // Determine target background
+    const targetVariant = toEl.dataset.variant || toEl.id.replace('variant-', '');
+    const targetBg = document.querySelector(`.collection-bg-img.bg-${targetVariant}`);
+    const currentBg = document.querySelector('.collection-bg-img.active');
+
+    const tl = gsap.timeline();
+
+    tl.to(fromText,  { opacity: 0, x: exitX, duration: 0.4, stagger: 0.04, ease: 'power2.in' })
+      .to(fromImg,   { opacity: 0, x: exitX * 1.3, duration: 0.35, ease: 'power2.in' }, '<')
+
+      .add(() => {
+        fromEl.classList.remove('active');
+        toEl.classList.add('active');
+        if (currentBg) currentBg.classList.remove('active');
+        if (targetBg)  targetBg.classList.add('active');
+        // Reset for entrance
+        gsap.set(toText,  { opacity: 0, x: enterX });
+        gsap.set(toImg,   { opacity: 0, x: enterX * 1.3 });
+      })
+
+      .to(toText,    { opacity: 1, x: 0, duration: 0.5, stagger: 0.07, ease: 'power3.out' })
+      .to(toImg,     { opacity: 1, x: 0, duration: 0.65, ease: 'power3.out' }, '<0.1');
+  }
+
+  // Wire up all prev/next buttons
+  document.querySelectorAll('.collection-next:not([disabled])').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const current = document.querySelector('.collection-main.active');
+      const target  = document.getElementById(`variant-${btn.dataset.target}`);
+      switchVariant(current, target, 'next');
+    });
+  });
+
+  document.querySelectorAll('.collection-prev:not([disabled])').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const current = document.querySelector('.collection-main.active');
+      const target  = document.getElementById(`variant-${btn.dataset.target}`);
+      switchVariant(current, target, 'prev');
+    });
+  });
+
+  // Re-bind after any dynamic switch (buttons are static, so just rebind disabled state visually)
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.collection-next, .collection-prev');
+    if (!btn || btn.disabled) return;
+  });
 }
+
+
 
 /* ═══════════════════════════════════════════════════════════
    SHOWCASE ANIMATIONS
 ═══════════════════════════════════════════════════════════ */
 function initShowcaseAnimations() {
-  const eyebrow  = document.querySelector('.showcase-eyebrow');
-  const headline = document.querySelector('.showcase-headline');
-  const body     = document.querySelector('.showcase-body');
-  const igLink   = document.querySelector('.showcase-ig-link');
+  const els = [
+    document.querySelector('.showcase-eyebrow'),
+    document.querySelector('.showcase-headline'),
+    document.querySelector('.showcase-body'),
+    document.querySelector('.showcase-actions'),
+  ].filter(Boolean);
 
-  const els = [eyebrow, headline, body, igLink].filter(Boolean);
   gsap.set(els, { opacity: 0, y: 40 });
 
   ScrollTrigger.create({
@@ -360,22 +307,27 @@ function initShowcaseAnimations() {
     start: 'top 65%',
     toggleActions: 'play none none reverse',
     onEnter: () => {
-      gsap.to(els, {
-        opacity: 1,
-        y: 0,
-        duration: 0.9,
-        stagger: 0.14,
-        ease: 'power3.out',
-      });
+      gsap.to(els, { opacity: 1, y: 0, duration: 0.9, stagger: 0.14, ease: 'power3.out' });
     },
     onLeaveBack: () => {
       gsap.to(els, { opacity: 0, y: 40, duration: 0.3, stagger: 0 });
     },
   });
+
+  gsap.to('.showcase-bg-img', {
+    yPercent: -10,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.showcase',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: true,
+    },
+  });
 }
 
 /* ═══════════════════════════════════════════════════════════
-   NAV HIDE/SHOW ON SCROLL
+   NAV SCROLL BEHAVIOR
 ═══════════════════════════════════════════════════════════ */
 function initNavScroll() {
   const nav = document.querySelector('.nav');
@@ -388,6 +340,14 @@ function initNavScroll() {
       const currentY = self.scroll();
       const delta = currentY - lastY;
 
+      // Add scrolled class for opaque background
+      if (currentY > 80) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+
+      // Hide/show
       if (delta > 5 && currentY > 100) {
         nav.classList.add('hidden');
       } else if (delta < -5) {
@@ -397,25 +357,69 @@ function initNavScroll() {
       lastY = currentY;
     },
   });
+
+  // Currency selector toggle
+  document.querySelectorAll('.currency-option').forEach((opt) => {
+    opt.addEventListener('click', () => {
+      document.querySelectorAll('.currency-option').forEach((o) => o.classList.remove('active'));
+      opt.classList.add('active');
+    });
+  });
 }
 
 /* ═══════════════════════════════════════════════════════════
-   MODAL
+   TRACK ORDER
+═══════════════════════════════════════════════════════════ */
+function initTrackOrder() {
+  const submitBtn = document.getElementById('track-submit-btn');
+  const result    = document.getElementById('track-result');
+  const input     = document.getElementById('track-input');
+
+  if (!submitBtn || !result) return;
+
+  submitBtn.addEventListener('click', () => {
+    const val = input?.value?.trim();
+    if (!val) {
+      input?.focus();
+      gsap.fromTo(input, { x: -6 }, { x: 0, duration: 0.4, ease: 'elastic.out(1, 0.4)' });
+      return;
+    }
+
+    // Show loading state
+    submitBtn.textContent = '···';
+    submitBtn.disabled = true;
+
+    setTimeout(() => {
+      result.removeAttribute('hidden');
+      result.style.display = 'block';
+      gsap.fromTo(result, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' });
+      submitBtn.textContent = 'Track →';
+      submitBtn.disabled = false;
+    }, 1200);
+  });
+
+  // Enter key support
+  input?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') submitBtn.click();
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MODAL (ENQUIRY)
 ═══════════════════════════════════════════════════════════ */
 function initModal() {
-  const overlay    = document.getElementById('reserve-modal');
-  const closeBtn   = document.getElementById('modal-close');
-  const openBtns   = document.querySelectorAll('.open-reserve-modal');
+  const overlay  = document.getElementById('enquiry-modal');
+  const closeBtn = document.getElementById('modal-close');
+  const openBtns = document.querySelectorAll('.open-enquiry-modal');
 
   function openModal() {
     overlay.classList.add('active');
     overlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
-    // Focus trap: focus first input
     setTimeout(() => {
-      const firstInput = overlay.querySelector('input, select, textarea, button');
-      if (firstInput) firstInput.focus();
-    }, 400);
+      const first = overlay.querySelector('input, select, textarea, button:not(.modal-close)');
+      first?.focus();
+    }, 420);
   }
 
   function closeModal() {
@@ -426,24 +430,22 @@ function initModal() {
 
   openBtns.forEach((btn) => btn.addEventListener('click', openModal));
   closeBtn?.addEventListener('click', closeModal);
-
-  // Click outside modal content
-  overlay?.addEventListener('click', (e) => {
-    if (e.target === overlay) closeModal();
-  });
-
-  // Escape key
+  overlay?.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && overlay.classList.contains('active')) closeModal();
+    if (e.key === 'Escape' && overlay?.classList.contains('active')) closeModal();
   });
 
-  // Smooth-scroll anchor links
+  // Anchor smooth-scroll
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener('click', (e) => {
       const target = document.querySelector(a.getAttribute('href'));
       if (target) {
         e.preventDefault();
-        lenis.scrollTo(target, { offset: -72, duration: 1.4, easing: (x) => 1 - Math.pow(1 - x, 4) });
+        lenis.scrollTo(target, {
+          offset: -72,
+          duration: 1.4,
+          easing: (x) => 1 - Math.pow(1 - x, 4),
+        });
       }
     });
   });
@@ -456,9 +458,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroAnimations();
   initProductRevealAnimations();
   initHeritageAnimations();
-  initEthosAnimations();
-  initDismantleAnimations();
+  initLogisticsAnimations();
+  initCollectionAnimations();
   initShowcaseAnimations();
   initNavScroll();
+  initTrackOrder();
   initModal();
 });

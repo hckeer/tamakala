@@ -3,36 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Tamakala — Pure copper handcrafts forged by master artisans in the Kathmandu Valley. The Origin Collection: limited to 108 pieces." />
-  <title>Tamakala · Copper Handcrafts · Origin Collection</title>
+  <meta name="description" content="Tamakala — Pure copper handcrafts hand-forged by master artisans in the Kathmandu Valley. Origin Collection — limited to 108 pieces. Ancient element. Future form." />
+  <meta property="og:title" content="Tamakala — Ancient Element. Future Form." />
+  <meta property="og:description" content="Pure copper handcrafts from the Kathmandu Valley. Limited Origin Collection." />
+  <title>Tamakala — Ancient Element. Future Form.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
 
-  <!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
-  <nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
+  <!-- ═══════════════ NAV ═══════════════ -->
+  <nav class="nav" id="main-nav" aria-label="Main navigation">
     <div class="nav-left">
       <div class="nav-links">
-        <a href="#collection" class="nav-link">Collection</a>
-        <a href="#heritage" class="nav-link">Heritage</a>
-        <a href="#craftsmanship" class="nav-link">Craftsmanship</a>
+        <a href="#collection" class="nav-link">Shop</a>
+        <a href="#heritage" class="nav-link">The Process</a>
+        <a href="#track" class="nav-link">Track Order</a>
       </div>
     </div>
     <div class="nav-center">
-      <div class="nav-logo-container">
-        <img class="nav-logo-img" src="/assets/photo/logo.webp" alt="Tamakala logo" />
-      </div>
+      <a href="https://www.tamakala.store" class="nav-logo-link" aria-label="Tamakala home">
+        <img class="nav-logo-img" src="/assets/photo/logo.webp" alt="Tamakala" />
+      </a>
     </div>
     <div class="nav-right">
-      <button class="nav-cta open-reserve-modal" id="nav-reserve-btn" aria-label="Open reservation form">Reserve Now</button>
+      <div class="currency-selector" role="group" aria-label="Currency selector">
+        <span class="currency-option active" data-currency="NPR" tabindex="0" role="button">NPR</span>
+        <span class="currency-sep">·</span>
+        <span class="currency-option" data-currency="USD" tabindex="0" role="button">USD</span>
+      </div>
+      <button class="nav-cart open-enquiry-modal" id="nav-cart-btn" aria-label="Open enquiry (0 items)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span class="cart-count" aria-live="polite">0</span>
+      </button>
     </div>
   </nav>
 
-  <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
-  <section class="hero" id="hero" aria-label="Hero section">
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <section class="hero" id="hero" aria-label="Hero">
     <div class="hero-bg">
       <video class="bg-video" autoplay loop muted playsinline aria-hidden="true">
         <source src="/hero-video.mp4" type="video/mp4" />
@@ -42,155 +56,271 @@
     <div class="hero-content">
       <div class="hero-text-bg" aria-hidden="true">TAMAKALA</div>
       <div class="hero-details">
-        <h1 class="hero-title">Ancient Element.<br /><span class="accent">Future Form.</span></h1>
+        <p class="hero-eyebrow">Kathmandu Valley · Est. 2024</p>
+        <h1 class="hero-title">Ancient Element.<br /><span class="accent-copper">Future Form.</span></h1>
         <p class="hero-subtitle">Ancient element. Future form.</p>
         <div class="hero-cta-group">
-          <span class="limited-edition">No. 01 / 108</span>
-          <a class="primary-btn" href="https://www.tamakala.store" target="_blank" rel="noopener" id="hero-explore-btn">Explore Collection</a>
+          <a class="primary-btn" href="#collection" id="hero-explore-btn">Explore the Collection</a>
+          <span class="craft-tag">Pure Copper · Hand-Forged</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════ PRODUCT REVEAL ═══════════════════════════════ -->
-  <section class="product-reveal" id="product-reveal" aria-label="Product reveal section">
+  <!-- ═══════════════ PRODUCT REVEAL ═══════════════ -->
+  <section class="product-reveal" id="product-reveal" aria-label="Product reveal">
     <div class="product-reveal-bg">
       <img class="product-reveal-bg-img" src="/assets/photo/bg1.png" alt="" aria-hidden="true" />
       <div class="product-reveal-overlay"></div>
     </div>
     <div class="product-reveal-content">
-      <div class="product-reveal-text-bg" aria-hidden="true">FORGED</div>
-      <div class="product-reveal-watch-container">
-        <img class="product-reveal-watch" src="/assets/photo/watch.png" alt="Tamakala Monolith Vessel — hand-hammered copper" />
+      <div class="product-reveal-text-bg" aria-hidden="true">COPPER</div>
+      <div class="product-reveal-product-container">
+        <img class="product-reveal-product" src="/assets/photo/product-hero.png" alt="Tamakala Monolith Vessel — hand-hammered copper bottle" />
       </div>
       <div class="product-reveal-details">
+        <p class="product-reveal-eyebrow">TK-MV-001 · The Monolith Vessel</p>
         <h2 class="product-reveal-title">Forged For<br /><span class="accent-gold">The Permanent</span></h2>
         <p class="product-reveal-subtitle">Pure copper. Hand-hammered by Nepali artisans. Zero industrial shortcuts — every surface a record of the hands that shaped it.</p>
         <div class="product-reveal-cta-group">
-          <span class="edition-tag">TK-MV-001</span>
-          <a class="secondary-btn" href="https://www.tamakala.store" target="_blank" rel="noopener" id="product-specs-btn">View Collection</a>
+          <span class="edition-tag">Pure Copper · Hand-Forged</span>
+          <a class="secondary-btn" href="#collection" id="product-view-btn">View the Collection</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════ HERITAGE ═══════════════════════════════ -->
-  <section class="heritage" id="heritage" aria-label="Heritage section">
+  <!-- ═══════════════ HERITAGE ═══════════════ -->
+  <section class="heritage" id="heritage" aria-label="Heritage">
     <div class="heritage-bg">
-      <img class="heritage-bg-img" src="/assets/photo/q1.png" alt="Nepali copper artisan at work" />
+      <img class="heritage-bg-img" src="/assets/photo/heritage-bg.png" alt="Nepali artisan hand-forging copper" />
       <div class="heritage-overlay"></div>
     </div>
     <div class="heritage-content">
       <div class="heritage-text">
-        <p class="heritage-eyebrow">Est. 2024 · Kathmandu, Nepal</p>
+        <p class="heritage-eyebrow">Kathmandu Valley · Since Ancient Times</p>
         <h2 class="heritage-title">Engineered in Nepal.<br /><em>Shipped Globally.</em></h2>
         <div class="heritage-divider"></div>
         <p class="heritage-body">Born in the Kathmandu Valley — the birthplace of copper metallurgy in South Asia — Tamakala channels centuries of forging tradition into objects designed for the modern world.</p>
         <p class="heritage-body">Every piece ships with an artisan's mark. A record of the hands that shaped it, the fire that formed it, and the lineage that carried the craft forward.</p>
-        <a class="heritage-link" href="https://www.tamakala.store" id="heritage-discover-btn">Discover Our Story →</a>
+        <a class="heritage-link" href="#collection" id="heritage-explore-btn">Explore the Process →</a>
       </div>
       <div class="heritage-stats">
         <div class="heritage-stat">
-          <span class="heritage-stat-number">500<span class="heritage-stat-plus">+</span></span>
-          <span class="heritage-stat-label">Hours Per Piece</span>
+          <span class="heritage-stat-number">500<span class="heritage-stat-unit">+</span></span>
+          <span class="heritage-stat-label">Years of Craft Heritage</span>
         </div>
         <div class="heritage-stat">
-          <span class="heritage-stat-number">108</span>
-          <span class="heritage-stat-label">Limited Edition</span>
+          <span class="heritage-stat-number">100<span class="heritage-stat-unit">%</span></span>
+          <span class="heritage-stat-label">Hand-Forged, Zero Machines</span>
         </div>
         <div class="heritage-stat">
-          <span class="heritage-stat-number">100<span class="heritage-stat-plus">%</span></span>
-          <span class="heritage-stat-label">Pure Copper</span>
+          <span class="heritage-stat-number">30<span class="heritage-stat-unit">+</span></span>
+          <span class="heritage-stat-label">Countries Shipped To</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════ COLLECTION ═══════════════════════════════ -->
-  <section class="ethos" id="collection" aria-label="Collection section">
-    <div class="ethos-header">
-      <h2 class="ethos-section-title">THE COLLECTION</h2>
+  <!-- ═══════════════ LOGISTICS BANNER ═══════════════ -->
+  <section class="logistics" id="logistics" aria-label="Shipping and logistics">
+    <div class="logistics-inner">
+      <div class="logistics-item">
+        <div class="logistics-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="1"/><path d="M5 17h14"/><circle cx="11" cy="21" r="1"/><circle cx="19" cy="21" r="1"/></svg>
+        </div>
+        <span>Fast Domestic Delivery (Nepal)</span>
+      </div>
+      <div class="logistics-item">
+        <div class="logistics-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <span>Worldwide Shipping</span>
+      </div>
+      <div class="logistics-item">
+        <div class="logistics-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <span>Live Order Tracking</span>
+      </div>
+      <div class="logistics-item">
+        <div class="logistics-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <span>Secure Checkout · eSewa · Stripe · PayPal</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ COLLECTION ═══════════════ -->
+  <section class="collection" id="collection" aria-label="Collection">
+    <div class="collection-header">
+      <p class="collection-eyebrow">Origin Collection · 2024</p>
+      <h2 class="collection-section-title">THE COLLECTION</h2>
     </div>
 
-    <div class="ethos-dynamic-bg" aria-hidden="true">
-      <img class="ethos-bg-img ethos-bg-bl active" src="/assets/photo/ethos-bg.png" alt="" />
-      <img class="ethos-bg-img ethos-bg-rs" src="/assets/photo/ethos-bg-rs.png" alt="" />
+    <!-- Dynamic backgrounds -->
+    <div class="collection-dynamic-bg" aria-hidden="true">
+      <img class="collection-bg-img bg-vessel active" src="/assets/photo/ethos-bg.png" alt="" />
+      <img class="collection-bg-img bg-planter" src="/assets/photo/ethos-bg-2.png" alt="" />
+      <img class="collection-bg-img bg-chiya" src="/assets/photo/ethos-bg-3.png" alt="" />
     </div>
 
-    <div class="ethos-slider-container">
-      <!-- Variant 1: VESSEL -->
-      <div class="ethos-main variant-bl active" id="variant-vessel">
-        <div class="ethos-text-side">
-          <h2 class="ethos-alt-title">TAMAKALA<br />ORIGIN COLLECTION</h2>
-          <p class="ethos-alt-subtitle">THE MONOLITH VESSEL</p>
-          <div class="ethos-ref">TK-MV-001</div>
-          <div class="ethos-description">A commanding copper vessel, hand-forged by master artisans in the Kathmandu Valley. Precision-hammered walls catch the light from every angle — a permanent centerpiece that outlives generations.</div>
-          <button class="ethos-next-btn" id="switch-to-rs" data-target="rs" aria-label="View Geometric Planter">
+    <!-- Variant 1: VESSEL -->
+    <div class="collection-main variant-vessel active" id="variant-vessel">
+      <div class="collection-text-side">
+        <p class="collection-ref">TK-MV-001</p>
+        <h2 class="collection-product-title">THE MONOLITH<br />VESSEL</h2>
+        <p class="collection-product-sub">The Monolith Vessel</p>
+        <div class="collection-description">A commanding copper vessel, hand-forged by master artisans in the Kathmandu Valley. Precision-hammered walls catch the light from every angle — a permanent centerpiece that outlives generations.</div>
+        <div class="collection-price">
+          <span class="price-npr">NPR 8,500</span>
+          <span class="price-sep">/</span>
+          <span class="price-usd">USD 65</span>
+        </div>
+        <div class="collection-nav-btns">
+          <button class="collection-prev" id="vessel-prev" disabled aria-label="Previous product">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          </button>
+          <button class="collection-next" id="vessel-next" data-target="planter" aria-label="Next: Geometric Planter">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            <span>Geometric Planter</span>
           </button>
         </div>
-        <div class="ethos-product-center">
-          <img class="ethos-watch-img" src="/assets/photo/ethos-watch.png" alt="Tamakala Monolith Vessel" />
-        </div>
       </div>
+      <div class="collection-product-center">
+        <img class="collection-product-img" src="/assets/photo/ethos-product.png" alt="Tamakala Monolith Vessel" />
+      </div>
+    </div>
 
-      <!-- Variant 2: PLANTER -->
-      <div class="ethos-main variant-rs" id="variant-planter">
-        <div class="ethos-text-side">
-          <h2 class="ethos-alt-title">TAMAKALA<br />ORIGIN COLLECTION</h2>
-          <p class="ethos-alt-subtitle">GEOMETRIC PLANTER</p>
-          <div class="ethos-ref">TK-GP-002</div>
-          <div class="ethos-description">Angular precision meets ancient craft. The Geometric Planter fuses mathematical form with hand-beaten copper texture — blurring the line between functional object and sculptural art.</div>
-          <button class="ethos-next-btn" id="switch-to-bl" data-target="bl" aria-label="View Monolith Vessel">
+    <!-- Variant 2: PLANTER -->
+    <div class="collection-main variant-planter" id="variant-planter">
+      <div class="collection-text-side">
+        <p class="collection-ref">TK-GP-002</p>
+        <h2 class="collection-product-title">GEOMETRIC<br />PLANTER</h2>
+        <p class="collection-product-sub">Geometric Planter</p>
+        <div class="collection-description">Angular precision meets ancient craft. The Geometric Planter fuses mathematical form with hand-beaten copper texture — blurring the line between functional object and sculptural art.</div>
+        <div class="collection-price">
+          <span class="price-npr">NPR 6,500</span>
+          <span class="price-sep">/</span>
+          <span class="price-usd">USD 50</span>
+        </div>
+        <div class="collection-nav-btns">
+          <button class="collection-prev" id="planter-prev" data-target="vessel" aria-label="Previous: Monolith Vessel">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          </button>
+          <button class="collection-next" id="planter-next" data-target="chiya" aria-label="Next: Chiya Service Set">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            <span>Monolith Vessel</span>
           </button>
         </div>
-        <div class="ethos-product-center">
-          <img class="ethos-watch-img" src="/assets/photo/ethos-watch-rs.png" alt="Tamakala Geometric Planter" />
+      </div>
+      <div class="collection-product-center">
+        <img class="collection-product-img" src="/assets/photo/ethos-product-2.png" alt="Tamakala Geometric Planter" />
+      </div>
+    </div>
+
+    <!-- Variant 3: CHIYA -->
+    <div class="collection-main variant-chiya" id="variant-chiya">
+      <div class="collection-text-side">
+        <p class="collection-ref">TK-CS-003</p>
+        <h2 class="collection-product-title">CHIYA<br />SERVICE SET</h2>
+        <p class="collection-product-sub">Chiya Service Set</p>
+        <div class="collection-description">A full tea service cast in pure copper. The Chiya Set is a ritual object — each pour a meditation, each piece a story of fire and hand passed down through Nepali generations.</div>
+        <div class="collection-price">
+          <span class="price-npr">NPR 12,000</span>
+          <span class="price-sep">/</span>
+          <span class="price-usd">USD 92</span>
+        </div>
+        <div class="collection-nav-btns">
+          <button class="collection-prev" id="chiya-prev" data-target="planter" aria-label="Previous: Geometric Planter">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          </button>
+          <button class="collection-next" id="chiya-next" disabled aria-label="Last product">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════ CRAFTSMANSHIP ═══════════════════════════════ -->
-  <section class="dismantle" id="craftsmanship" aria-label="Craftsmanship section">
-    <div class="dismantle-container">
-      <div class="dismantle-header">
-        <h2 class="section-title">THE ANATOMY OF <span class="accent">HANDCRAFT</span></h2>
-        <p class="section-subtitle">Zero machines. Every surface hammered by hand. This is the geometry of pure copper, shaped one strike at a time.</p>
-      </div>
-      <canvas id="dismantle-canvas" aria-label="Scroll-driven craftsmanship animation"></canvas>
-      <div class="dismantle-fallback" id="dismantle-fallback" aria-hidden="true">
-        <img src="/assets/photo/watch.png" alt="Copper vessel detail" />
+      <div class="collection-product-center">
+        <img class="collection-product-img" src="/assets/photo/ethos-product-3.png" alt="Tamakala Chiya Service Set" />
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════ SHOWCASE ═══════════════════════════════ -->
-  <section class="showcase" id="showcase" aria-label="Showcase section">
+
+
+  <!-- ═══════════════ SHOWCASE ═══════════════ -->
+  <section class="showcase" id="showcase" aria-label="Showcase">
     <div class="showcase-visual">
-      <img class="showcase-bg-img" src="/assets/photo/z1.png" alt="Tamakala copper vessel — cinematic showcase" />
+      <img class="showcase-bg-img" src="/assets/photo/showcase-bg.png" alt="Tamakala copper vessel — cinematic" />
       <div class="showcase-gradient"></div>
     </div>
     <div class="showcase-text">
-      <p class="showcase-eyebrow">Handcrafted. Limited to 108 Numbered Pieces.</p>
+      <p class="showcase-eyebrow">Handcrafted. Limited. Permanent.</p>
       <h2 class="showcase-headline">Beyond<br /><em>Ordinary.</em></h2>
-      <p class="showcase-body">When raw copper meets a master's hammer — this is what permanence looks like. Objects that don't age. They deepen.</p>
-      <a class="showcase-ig-link" href="https://www.instagram.com/tamakala.store/" target="_blank" rel="noopener" id="showcase-ig-btn" aria-label="Follow Tamakala on Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-        Follow @tamakala.store
-      </a>
+      <p class="showcase-body">When raw copper meets a master's hammer — this is what permanence looks like. Objects that don't age. They only deepen.</p>
+      <div class="showcase-actions">
+        <a class="primary-btn" href="#collection" id="showcase-shop-btn">Shop the Collection</a>
+        <a class="showcase-ig-link" href="https://www.instagram.com/tamakala.store/" target="_blank" rel="noopener" id="showcase-ig-btn" aria-label="Follow Tamakala on Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          @tamakala.store
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+  <!-- ═══════════════ TRACK ORDER ═══════════════ -->
+  <section class="track-order" id="track" aria-label="Track your order">
+    <div class="track-inner">
+      <div class="track-header">
+        <p class="track-eyebrow">Your Order</p>
+        <h2 class="track-title">Track Your<br /><span class="accent-gold">Shipment</span></h2>
+      </div>
+      <div class="track-form-wrapper">
+        <p class="track-subtitle">Enter your order ID or the email address used at checkout.</p>
+        <div class="track-input-group">
+          <input type="text" id="track-input" class="track-input" placeholder="Order ID or Email Address" aria-label="Order ID or Email Address" />
+          <button class="track-submit-btn" id="track-submit-btn" aria-label="Track order">Track →</button>
+        </div>
+        <div class="track-result" id="track-result" aria-live="polite" hidden>
+          <div class="track-status-bar" role="list" aria-label="Order status steps">
+            <div class="track-step active" role="listitem">
+              <div class="track-step-dot"></div>
+              <span>Processing</span>
+            </div>
+            <div class="track-step-line"></div>
+            <div class="track-step" role="listitem">
+              <div class="track-step-dot"></div>
+              <span>Shipped</span>
+            </div>
+            <div class="track-step-line"></div>
+            <div class="track-step" role="listitem">
+              <div class="track-step-dot"></div>
+              <span>In Transit</span>
+            </div>
+            <div class="track-step-line"></div>
+            <div class="track-step" role="listitem">
+              <div class="track-step-dot"></div>
+              <span>Delivered</span>
+            </div>
+          </div>
+          <p class="track-result-detail">Enter your details above to check your order status.</p>
+        </div>
+      </div>
+      <div class="track-payment-logos" aria-label="Accepted payment methods">
+        <span class="payment-label">Accepted:</span>
+        <span class="payment-badge">eSewa</span>
+        <span class="payment-badge">Khalti</span>
+        <span class="payment-badge">Stripe</span>
+        <span class="payment-badge">PayPal</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
   <footer class="footer" role="contentinfo">
     <div class="footer-top-rule" aria-hidden="true"></div>
     <div class="footer-inner">
       <div class="footer-grid">
-        <!-- Brand column -->
+        <!-- Brand -->
         <div class="footer-brand-col">
           <img class="footer-logo" src="/assets/photo/logo.webp" alt="Tamakala" />
           <p class="footer-tagline">Kathmandu · Est. 2024</p>
@@ -208,118 +338,117 @@
           </div>
         </div>
 
-        <!-- Collections column -->
+        <!-- Shop -->
         <div class="footer-col">
-          <h5 class="footer-col-title">Collections</h5>
+          <h5 class="footer-col-title">Shop</h5>
           <ul class="footer-links" role="list">
-            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">Origin Collection</a></li>
-            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">Monolith Vessel</a></li>
-            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">Geometric Planter</a></li>
+            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">All Products</a></li>
+            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">Best Sellers</a></li>
+            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">New Arrivals</a></li>
             <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">Gift Sets</a></li>
           </ul>
         </div>
 
-        <!-- Maison column -->
+        <!-- Support -->
         <div class="footer-col">
-          <h5 class="footer-col-title">Tamakala</h5>
+          <h5 class="footer-col-title">Support</h5>
           <ul class="footer-links" role="list">
-            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">Our Story</a></li>
-            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">Heritage</a></li>
-            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">Savoir-Faire</a></li>
-            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">Journal</a></li>
+            <li><a href="#track">Track Order</a></li>
+            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">Shipping Policy</a></li>
+            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">Care Instructions</a></li>
+            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">Contact</a></li>
           </ul>
         </div>
 
-        <!-- Shipping column -->
+        <!-- Ship To -->
         <div class="footer-col">
-          <h5 class="footer-col-title">Ships To</h5>
+          <h5 class="footer-col-title">Ship To</h5>
           <ul class="footer-links" role="list">
-            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">Nepal</a></li>
-            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">India</a></li>
-            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">United States</a></li>
-            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">Worldwide</a></li>
+            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">Kathmandu</a></li>
+            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">London</a></li>
+            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">New York</a></li>
+            <li><a href="https://www.tamakala.store" target="_blank" rel="noopener">Dubai</a></li>
           </ul>
         </div>
 
-        <!-- Reserve column -->
-        <div class="footer-col footer-col-reserve">
-          <h5 class="footer-col-title">Origin Collection</h5>
-          <p class="footer-col-desc">Limited to 108 numbered pieces. Reserve yours before the edition closes.</p>
-          <button class="footer-reserve-btn open-reserve-modal" id="footer-reserve-btn">Reserve Your Piece</button>
+        <!-- Newsletter -->
+        <div class="footer-col footer-col-newsletter">
+          <h5 class="footer-col-title">Inner Circle</h5>
+          <p class="footer-col-desc">Join the inner circle for exclusive drops.</p>
+          <div class="footer-newsletter-form">
+            <input type="email" id="newsletter-email" class="newsletter-input" placeholder="Your email" aria-label="Email for newsletter" />
+            <button class="newsletter-btn" id="newsletter-btn" aria-label="Subscribe">→</button>
+          </div>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <p class="footer-legal">© 2024 Tamakala. All rights reserved. Patan, Lalitpur, Nepal.</p>
+        <p class="footer-legal">© 2026 Tamakala. All rights reserved.</p>
         <div class="footer-bottom-links">
-          <a href="https://www.tamakala.store" target="_blank" rel="noopener">Legal</a>
-          <a href="https://www.tamakala.store" target="_blank" rel="noopener">Privacy</a>
+          <a href="https://www.tamakala.store" target="_blank" rel="noopener">Privacy Policy</a>
+          <a href="https://www.tamakala.store" target="_blank" rel="noopener">Shipping Policy</a>
           <a href="https://www.tamakala.store" target="_blank" rel="noopener">Contact</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- ═══════════════════════════════ RESERVATION MODAL ═══════════════════════════════ -->
-  <div class="modal-overlay" id="reserve-modal" role="dialog" aria-modal="true" aria-label="Reservation form" aria-hidden="true">
+  <!-- ═══════════════ ENQUIRY MODAL ═══════════════ -->
+  <div class="modal-overlay" id="enquiry-modal" role="dialog" aria-modal="true" aria-label="Product enquiry form" aria-hidden="true">
     <div class="modal">
-      <button class="modal-close" id="modal-close" aria-label="Close reservation form">
+      <button class="modal-close" id="modal-close" aria-label="Close enquiry form">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
-
       <div class="modal-left">
-        <img class="modal-watch-img" src="/assets/photo/z1.png" alt="Tamakala copper vessel" />
+        <img class="modal-product-img" src="/assets/photo/showcase-bg.png" alt="Tamakala copper vessel" />
         <div class="modal-left-overlay"></div>
         <div class="modal-left-text">
-          <p class="modal-left-tag">No. 01 / 108</p>
-          <h3 class="modal-left-title">Origin<br />Collection</h3>
+          <p class="modal-left-tag">Origin Collection · 2024</p>
+          <h3 class="modal-left-title">Tamakala<br />Copper Craft</h3>
         </div>
       </div>
-
       <div class="modal-right">
-        <p class="modal-eyebrow">Private Reservation</p>
-        <h2 class="modal-title">Secure Your <em>Piece</em></h2>
-        <p class="modal-subtitle">One of 108 numbered editions, hand-forged in Kathmandu. Reserve now to guarantee your place in the collection.</p>
-
-        <form class="modal-form" id="reserve-form" name="reservation" method="POST" data-netlify="true" novalidate>
-          <input type="hidden" name="form-name" value="reservation" />
-
+        <p class="modal-eyebrow">Product Enquiry</p>
+        <h2 class="modal-title">Request Your <em>Piece</em></h2>
+        <p class="modal-subtitle">Reach out to enquire about availability, custom sizing, or wholesale orders.</p>
+        <form class="modal-form" id="enquiry-form" name="enquiry" method="POST" data-netlify="true" novalidate>
+          <input type="hidden" name="form-name" value="enquiry" />
           <div class="form-row">
             <div class="form-group">
               <label for="first-name">First Name</label>
-              <input type="text" id="first-name" name="first-name" placeholder="Your first name" autocomplete="given-name" />
+              <input type="text" id="first-name" name="first-name" placeholder="First name" autocomplete="given-name" />
             </div>
             <div class="form-group">
               <label for="last-name">Last Name</label>
-              <input type="text" id="last-name" name="last-name" placeholder="Your last name" autocomplete="family-name" />
+              <input type="text" id="last-name" name="last-name" placeholder="Last name" autocomplete="family-name" />
             </div>
           </div>
-
           <div class="form-group">
             <label for="email">Email Address</label>
             <input type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email" />
           </div>
-
           <div class="form-group">
             <label for="phone">Phone / WhatsApp</label>
-            <input type="tel" id="phone" name="phone" placeholder="+1 234 567 8900" autocomplete="tel" />
+            <input type="tel" id="phone" name="phone" placeholder="+977 98XXXXXXXX" autocomplete="tel" />
           </div>
-
           <div class="form-group">
-            <label for="variant">Preferred Variant</label>
-            <select id="variant" name="variant">
-              <option value="">Select a piece…</option>
-              <option value="vessel">Monolith Vessel — TK-MV-001</option>
-              <option value="planter">Geometric Planter — TK-GP-002</option>
+            <label for="country">Country</label>
+            <input type="text" id="country" name="country" placeholder="Your country" autocomplete="country-name" />
+          </div>
+          <div class="form-group">
+            <label for="product-interest">Product Interest</label>
+            <select id="product-interest" name="product-interest">
+              <option value="">Select a product…</option>
+              <option value="vessel">The Monolith Vessel (TK-MV-001)</option>
+              <option value="planter">Geometric Planter (TK-GP-002)</option>
+              <option value="chiya">Chiya Service Set (TK-CS-003)</option>
             </select>
           </div>
-
           <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="3" placeholder="Any questions or special requests…"></textarea>
+            <label for="message">Message / Special Requirements</label>
+            <textarea id="message" name="message" rows="4" placeholder="Custom sizing, wholesale enquiries, or any questions…"></textarea>
           </div>
-
-          <button type="submit" class="form-submit-btn" id="modal-submit-btn">Submit Reservation</button>
+          <button type="submit" class="form-submit-btn" id="modal-submit-btn">Send Enquiry</button>
         </form>
       </div>
     </div>
