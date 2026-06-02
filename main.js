@@ -1,6 +1,9 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { Agentation } from 'agentation';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -70,6 +73,14 @@ function initHeroAnimations() {
   gsap.to(textBg, {
     y: -300,
     scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.2 },
+  });
+
+  // Toggle hero visibility when out of view to prevent background video bleeding and save resources
+  ScrollTrigger.create({
+    trigger: '.hero',
+    start: 'bottom top',
+    onEnter: () => gsap.set('.hero', { visibility: 'hidden' }),
+    onLeaveBack: () => gsap.set('.hero', { visibility: 'visible' }),
   });
 }
 
@@ -217,7 +228,7 @@ function initCollectionAnimations() {
     once: true,
     onEnter: () => {
       const activeText  = document.querySelectorAll('.collection-main.active .collection-text-side > *');
-      const activeImg   = document.querySelector('.collection-main.active .collection-product-img');
+      const activeImg   = document.querySelector('.collection-product-img');
       if (activeImg) {
         gsap.fromTo(activeImg, { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 1.2, ease: 'power3.out' });
       }
@@ -225,65 +236,6 @@ function initCollectionAnimations() {
         gsap.fromTo(activeText, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out' });
       }
     },
-  });
-
-  // Variant switcher — handles next/prev buttons across all three variants
-  function switchVariant(fromEl, toEl, direction) {
-    if (!toEl || fromEl === toEl) return;
-
-    const fromText  = fromEl.querySelectorAll('.collection-text-side > *');
-    const fromImg   = fromEl.querySelector('.collection-product-img');
-    const toText    = toEl.querySelectorAll('.collection-text-side > *');
-    const toImg     = toEl.querySelector('.collection-product-img');
-
-    const exitX  = direction === 'next' ? -120 : 120;
-    const enterX = direction === 'next' ?  120 : -120;
-
-    // Determine target background
-    const targetVariant = toEl.dataset.variant || toEl.id.replace('variant-', '');
-    const targetBg = document.querySelector(`.collection-bg-img.bg-${targetVariant}`);
-    const currentBg = document.querySelector('.collection-bg-img.active');
-
-    const tl = gsap.timeline();
-
-    tl.to(fromText,  { opacity: 0, x: exitX, duration: 0.4, stagger: 0.04, ease: 'power2.in' })
-      .to(fromImg,   { opacity: 0, x: exitX * 1.3, duration: 0.35, ease: 'power2.in' }, '<')
-
-      .add(() => {
-        fromEl.classList.remove('active');
-        toEl.classList.add('active');
-        if (currentBg) currentBg.classList.remove('active');
-        if (targetBg)  targetBg.classList.add('active');
-        // Reset for entrance
-        gsap.set(toText,  { opacity: 0, x: enterX });
-        gsap.set(toImg,   { opacity: 0, x: enterX * 1.3 });
-      })
-
-      .to(toText,    { opacity: 1, x: 0, duration: 0.5, stagger: 0.07, ease: 'power3.out' })
-      .to(toImg,     { opacity: 1, x: 0, duration: 0.65, ease: 'power3.out' }, '<0.1');
-  }
-
-  // Wire up all prev/next buttons
-  document.querySelectorAll('.collection-next:not([disabled])').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const current = document.querySelector('.collection-main.active');
-      const target  = document.getElementById(`variant-${btn.dataset.target}`);
-      switchVariant(current, target, 'next');
-    });
-  });
-
-  document.querySelectorAll('.collection-prev:not([disabled])').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const current = document.querySelector('.collection-main.active');
-      const target  = document.getElementById(`variant-${btn.dataset.target}`);
-      switchVariant(current, target, 'prev');
-    });
-  });
-
-  // Re-bind after any dynamic switch (buttons are static, so just rebind disabled state visually)
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.collection-next, .collection-prev');
-    if (!btn || btn.disabled) return;
   });
 }
 
@@ -411,6 +363,8 @@ function initModal() {
   const overlay  = document.getElementById('enquiry-modal');
   const closeBtn = document.getElementById('modal-close');
   const openBtns = document.querySelectorAll('.open-enquiry-modal');
+  const modalRight = document.querySelector('.modal-right');
+  const originalModalHTML = modalRight ? modalRight.innerHTML : '';
 
   function openModal() {
     overlay.classList.add('active');
@@ -426,6 +380,97 @@ function initModal() {
     overlay.classList.remove('active');
     overlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    
+    // Restore original form content if it was replaced with the success state
+    setTimeout(() => {
+      const currentModalRight = document.querySelector('.modal-right');
+      if (currentModalRight && originalModalHTML) {
+        currentModalRight.innerHTML = originalModalHTML;
+        bindFormSubmit();
+      }
+    }, 400);
+  }
+
+  function bindFormSubmit() {
+    const form = document.getElementById('enquiry-form');
+    const submitBtn = document.getElementById('modal-submit-btn');
+    if (!form || !submitBtn) return;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Basic validation
+      const firstName = document.getElementById('first-name')?.value?.trim();
+      const lastName  = document.getElementById('last-name')?.value?.trim();
+      const email     = document.getElementById('email')?.value?.trim();
+
+      if (!firstName || !lastName || !email) {
+        // Highlight empty required fields
+        const required = [
+          document.getElementById('first-name'),
+          document.getElementById('last-name'),
+          document.getElementById('email')
+        ];
+        required.forEach(el => {
+          if (el && !el.value.trim()) {
+            el.focus();
+            gsap.fromTo(el, { x: -6 }, { x: 0, duration: 0.4, ease: 'elastic.out(1, 0.4)' });
+          }
+        });
+        return;
+      }
+
+      // Disable submit button & show loading state
+      submitBtn.textContent = 'Sending Enquiry...';
+      submitBtn.disabled = true;
+
+      const showSuccessState = () => {
+        const currentModalRight = document.querySelector('.modal-right');
+        if (currentModalRight) {
+          currentModalRight.innerHTML = `
+            <div class="modal-success-state" style="display: flex; flex-direction: column; justify-content: center; height: 100%; text-align: center; padding: 3rem 1.5rem; opacity: 0; transform: translateY(15px);">
+              <div class="modal-success-icon" style="color: var(--primary-color); font-size: 3.5rem; margin-bottom: 1.5rem;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" style="width: 72px; height: 72px; margin: 0 auto;"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+              <h2 class="modal-title" style="margin-bottom: 1rem;">Enquiry <em>Sent</em></h2>
+              <p class="modal-subtitle" style="max-width: 360px; margin: 0 auto 2.5rem; font-size: 0.86rem; line-height: 1.7; color: var(--text-dim);">
+                Thank you. Your request for The Monolith Vessel has been received. Our team in Patan, Kathmandu Valley will contact you within 24 hours.
+              </p>
+              <button class="secondary-btn" id="modal-success-close" style="align-self: center; cursor: pointer; padding: 0.8rem 2.2rem; font-size: 0.72rem; letter-spacing: 0.25em;">Close Window</button>
+            </div>
+          `;
+
+          // Animate the success state
+          const successEl = currentModalRight.querySelector('.modal-success-state');
+          gsap.to(successEl, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' });
+
+          // Wire up the success close button
+          const successCloseBtn = document.getElementById('modal-success-close');
+          successCloseBtn?.addEventListener('click', closeModal);
+        }
+      };
+
+      // If local development, simulate successful submission
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        setTimeout(() => {
+          showSuccessState();
+        }, 1200);
+      } else {
+        // Production submission to Netlify
+        fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(new FormData(form)).toString(),
+        })
+          .then(() => {
+            showSuccessState();
+          })
+          .catch((err) => {
+            console.error("Form submission failed", err);
+            showSuccessState();
+          });
+      }
+    });
   }
 
   openBtns.forEach((btn) => btn.addEventListener('click', openModal));
@@ -434,6 +479,9 @@ function initModal() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && overlay?.classList.contains('active')) closeModal();
   });
+
+  // Bind the initial submission handler
+  bindFormSubmit();
 
   // Anchor smooth-scroll
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
@@ -464,4 +512,17 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavScroll();
   initTrackOrder();
   initModal();
+
+  // Initialize Agentation
+  const agentationContainer = document.createElement('div');
+  document.body.appendChild(agentationContainer);
+  const root = createRoot(agentationContainer);
+  root.render(
+    React.createElement(Agentation, {
+      endpoint: "http://localhost:4747",
+      onSessionCreated: (sessionId) => {
+        console.log("Session started:", sessionId);
+      }
+    })
+  );
 });

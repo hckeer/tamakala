@@ -129,10 +129,10 @@ ul { list-style: none; }
 .nav-center { display: flex; justify-content: center; }
 .nav-logo-link { display: flex; align-items: center; }
 .nav-logo-img {
-  height: 26px;
+  height: 38px;
   width: auto;
   filter: brightness(0) invert(1);
-  opacity: 0.88;
+  opacity: 0.95;
   transition: opacity 0.3s;
 }
 .nav-logo-img:hover { opacity: 1; }
@@ -1129,9 +1129,9 @@ ul { list-style: none; }
 }
 
 .footer-logo {
-  height: 20px; width: auto;
+  height: 28px; width: auto;
   filter: brightness(0) invert(1);
-  opacity: 0.65;
+  opacity: 0.85;
   margin-bottom: 1.2rem;
 }
 
@@ -1339,6 +1339,7 @@ ul { list-style: none; }
 .modal-right {
   padding: 2.5rem 2rem 2rem;
   overflow-y: auto;
+  min-height: 0;
 }
 .modal-eyebrow {
   font-family: var(--font-accent);
@@ -1485,10 +1486,13 @@ ul { list-style: none; }
   .track-submit-btn { padding: 0.85rem; }
 
   .modal {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     max-height: 90vh;
+    overflow-y: auto;
   }
-  .modal-left { min-height: 200px; }
+  .modal-right { min-height: auto; overflow-y: visible; }
+  .modal-left { min-height: 200px; flex-shrink: 0; }
   .form-row { grid-template-columns: 1fr; }
 
   .footer-grid {
