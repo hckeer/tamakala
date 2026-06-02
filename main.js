@@ -310,13 +310,49 @@ function initNavScroll() {
     },
   });
 
-  // Currency selector toggle
+  // Currency handling
+  function setCurrency(currency) {
+    if (currency === 'NPR') {
+      document.body.classList.add('currency-npr');
+      document.body.classList.remove('currency-usd');
+    } else {
+      document.body.classList.add('currency-usd');
+      document.body.classList.remove('currency-npr');
+    }
+    
+    document.querySelectorAll('.currency-option').forEach((o) => {
+      if (o.dataset.currency === currency) {
+        o.classList.add('active');
+      } else {
+        o.classList.remove('active');
+      }
+    });
+  }
+
+  // Currency selector manual toggle
   document.querySelectorAll('.currency-option').forEach((opt) => {
     opt.addEventListener('click', () => {
-      document.querySelectorAll('.currency-option').forEach((o) => o.classList.remove('active'));
-      opt.classList.add('active');
+      setCurrency(opt.dataset.currency);
     });
   });
+
+  // Fetch user location to set default currency
+  async function initCurrencyLocation() {
+    try {
+      const res = await fetch('https://ipapi.co/json/');
+      const data = await res.json();
+      if (data.country_code === 'NP') {
+        setCurrency('NPR');
+      } else {
+        setCurrency('USD');
+      }
+    } catch (err) {
+      console.warn('Geolocation failed, defaulting to USD');
+      setCurrency('USD');
+    }
+  }
+
+  initCurrencyLocation();
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -434,7 +470,7 @@ function initModal() {
               </div>
               <h2 class="modal-title" style="margin-bottom: 1rem;">Enquiry <em>Sent</em></h2>
               <p class="modal-subtitle" style="max-width: 360px; margin: 0 auto 2.5rem; font-size: 0.86rem; line-height: 1.7; color: var(--text-dim);">
-                Thank you. Your request for The Monolith Vessel has been received. Our team in Patan, Kathmandu Valley will contact you within 24 hours.
+                Thank you. Your request for The Monolith Vessel has been received. Our team in South Asia will contact you within 24 hours.
               </p>
               <button class="secondary-btn" id="modal-success-close" style="align-self: center; cursor: pointer; padding: 0.8rem 2.2rem; font-size: 0.72rem; letter-spacing: 0.25em;">Close Window</button>
             </div>

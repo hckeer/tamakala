@@ -387,6 +387,9 @@ ul { list-style: none; }
   width: 100%;
   max-width: 480px;
   height: auto;
+  border-radius: 30px;
+  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);
+  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);
 }
 
 .product-reveal-details {
@@ -764,6 +767,11 @@ ul { list-style: none; }
 }
 .price-sep { color: var(--text-faint); }
 .price-usd { color: var(--text-dim); }
+
+body.currency-npr .price-usd,
+body.currency-npr .price-sep { display: none; }
+body.currency-usd .price-npr,
+body.currency-usd .price-sep { display: none; }
 
 .collection-nav-btns {
   display: flex;
